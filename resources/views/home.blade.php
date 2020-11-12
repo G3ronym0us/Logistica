@@ -14,9 +14,9 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('beneficiario') }}" class="btn btn-primary">Beneficiario</a href="beneficiario">
+                    <a href="{{ url('beneficiario') }}" class="btn btn-primary">Beneficiario</a href="beneficiario">
 
-                    <a href="{{ route('correlativo') }}" class="btn btn-primary">Correlativo</a>
+                    <a href="{{ url('correlativo') }}" class="btn btn-primary">Correlativo</a>
                     
                 </div>
             </div>

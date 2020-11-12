@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
+Route::resource('beneficiario', 'BeneficiarioController', ['except' => 'show', 'create', 'edit']);
+Route::resource('correlativo', 'CorrelativoController', ['except' => 'show', 'create', 'edit']);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
-Route::resource('beneficiario', 'BeneficiarioController', ['except' => 'show', 'create', 'edit']);
-Route::resource('correlativo', 'CorrelativoController', ['except' => 'show', 'create', 'edit']);

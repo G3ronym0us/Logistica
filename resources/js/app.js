@@ -10,7 +10,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.axios = require('axios');
-import toastr from 'toastr';
+window.toastr= require('toastr');
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,7 +23,10 @@ import toastr from 'toastr';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('beneficiario-component', require('./components/BeneficiarioComponent.vue').default);
+Vue.component('beneficiario-edit-component', require('./components/BeneficiarioEditComponent.vue').default);
+Vue.component('beneficiario-new-component', require('./components/BeneficiarioNewComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,9 +34,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+new Vue({
+	el: '#app'
+});
 
-		var appCorrelativo = new Vue({
-			el: '#appCorrelativo',
+
+/*
+		var app = new Vue({
+			el: '#app',
 			created: function() {
 				this.getCorrelativos();
 				this.getBeneficiarios();
@@ -49,12 +57,51 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 			  beneficiario_id: '',
 			  proyecto: '',
 			  orden_compra: '',
+			  pagination: {
+				'total': 0,
+				'current_page': 0,
+				'per_page': 0,
+				'last_page': 0,
+				'from': 0,
+				'to': 0
+			}
+			},
+			computed: {
+				isActived: function() {
+					return this.pagination.current_page;
+				},
+				withoutErrors: function() {
+					this.errors = '';
+				},
+				pagesNumber: function() {
+					if(!this.pagination.to){
+						return [];
+					}
+		
+					var from = this.pagination.current_page - this.offset; 
+					if(from < 1){
+						from = 1;
+					}
+		
+					var to = from + (this.offset * 2); 
+					if(to >= this.pagination.last_page){
+						to = this.pagination.last_page;
+					}
+		
+					var pagesArray = [];
+					while(from <= to){
+						pagesArray.push(from);
+						from++;
+					}
+					return pagesArray;
+				}
 			},
 			methods: {
 				getCorrelativos: function() {
 					var url = 'api/getCorrelativos';
 					axios.get(url).then(response => {
 						this.lists = response.data.data
+						this.pagination = response.data.pagination
 					});
 				},
 				getMunicipios: function(){
@@ -67,6 +114,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 					var url = 'api/getBeneficiariosFull';
 					axios.get(url).then(response => {
 						this.beneficiarios = response.data
+						this.pagination = response.data.pagination
 					});
 				},
 				formatNumPartida: function() {
@@ -85,6 +133,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 						this.n_partida = this.n_partida.substr(0,3)+'-'+this.n_partida.substr(3,2)+'-'+this.n_partida.substr(5,2)+'-'+this.n_partida.substr(7,2);
 					}
 
+				},
+				changePage: function(page) {
+					this.pagination.current_page = page;
+					this.getKeeps(page);
 				},
 				createCorrelativo: function() {
 					var url = 'correlativo';
@@ -110,3 +162,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 				}
 			}
 		  })
+*/

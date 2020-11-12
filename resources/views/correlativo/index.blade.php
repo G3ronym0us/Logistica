@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                        <div id="appCorrelativo" class="container">
+                        <div id="app" class="container">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#create">Nuevo Correlativo</a>

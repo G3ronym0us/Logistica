@@ -52,7 +52,17 @@ Route::get('getMunicipios', function(Request $request){
 });
 
 Route::get('getBeneficiariosFull', function(Request $request){
-    $beneficiarios = App\Beneficiario::all();
-    return $beneficiarios;
+    $beneficiarios = App\Beneficiario::orderBy('id', 'DESC')->paginate(10);
+    return [
+        'pagination' => [
+            'total'         => $beneficiarios->total(),
+            'current_page'  => $beneficiarios->currentPage(),
+            'per_page'      => $beneficiarios->perPage(),
+            'last_page'     => $beneficiarios->lastPage(),
+            'from'          => $beneficiarios->firstItem(),
+            'to'            => $beneficiarios->lastItem(),
+        ],
+        'beneficiarios' => $beneficiarios
+    ];;
 });
 
