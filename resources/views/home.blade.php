@@ -17,6 +17,10 @@
                     <a href="{{ url('beneficiario') }}" class="btn btn-primary">Beneficiario</a href="beneficiario">
 
                     <a href="{{ url('correlativo') }}" class="btn btn-primary">Correlativo</a>
+
+                    <a href="{{ url('catalogo') }}" class="btn btn-primary">Catalogo</a>
+
+                    <a href="{{ url('unidad_medida') }}" class="btn btn-primary">Unidad de Medida</a>
                     
                 </div>
             </div>

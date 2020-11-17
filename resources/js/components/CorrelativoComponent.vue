@@ -82,7 +82,7 @@
                 <div class="modal-body">
                     <label for="municipio">Municipio {{ municipio_id }} </label>
                     <select name="municipio" id="municipio" class="form-control" v-model="municipio_id">
-                        <option v-bind:value="municipio.id" v-for="municipio in municipios" :key="municipio.id" :selected="municipio.id == 3">{{ municipio.name }}</option>
+                        <option v-bind:value="municipio.id" v-for="municipio in municipios" :key="municipio.id">{{ municipio.name }}</option>
                     </select>
 
                     <label for="n_partida">Numero de Partida {{ n_partida }} </label>

@@ -31,6 +31,10 @@ Vue.component('correlativo-component', require('./components/CorrelativoComponen
 Vue.component('correlativo-edit-component', require('./components/CorrelativoEditComponent.vue').default);
 Vue.component('correlativo-new-component', require('./components/CorrelativoNewComponent.vue').default);
 
+Vue.component('catalogo-component', require('./components/CatalogoComponent.vue').default);
+
+Vue.component('unidad-component', require('./components/UnidadComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -70,3 +70,33 @@ Route::get('getBeneficiariosFull', function(Request $request){
     ];;
 });
 
+Route::get('getCatalogos', function(Request $request){
+    $catalogos = App\Catalogo::orderBy('id', 'DESC')->paginate(10);
+    return [
+        'pagination' => [
+            'total'         => $catalogos->total(),
+            'current_page'  => $catalogos->currentPage(),
+            'per_page'      => $catalogos->perPage(),
+            'last_page'     => $catalogos->lastPage(),
+            'from'          => $catalogos->firstItem(),
+            'to'            => $catalogos->lastItem(),
+        ],
+        'catalogos' => $catalogos
+    ];;
+});
+
+Route::get('getUnidades', function(Request $request){
+    $unidades = App\UnidadMedida::orderBy('id', 'DESC')->paginate(10);
+    return [
+        'pagination' => [
+            'total'         => $unidades->total(),
+            'current_page'  => $unidades->currentPage(),
+            'per_page'      => $unidades->perPage(),
+            'last_page'     => $unidades->lastPage(),
+            'from'          => $unidades->firstItem(),
+            'to'            => $unidades->lastItem(),
+        ],
+        'unidades' => $unidades
+    ];;
+});
+

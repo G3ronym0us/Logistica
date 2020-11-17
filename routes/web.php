@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::resource('beneficiario', 'BeneficiarioController', ['except' => 'show', 'create', 'edit']);
 Route::resource('correlativo', 'CorrelativoController', ['except' => 'show', 'create', 'edit']);
+Route::resource('catalogo', 'CatalogoController', ['except' => 'show', 'create', 'edit']);
+Route::resource('unidad_medida', 'UnidadController', ['except' => 'show', 'create', 'edit']);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
