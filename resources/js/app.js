@@ -27,6 +27,10 @@ Vue.component('beneficiario-component', require('./components/BeneficiarioCompon
 Vue.component('beneficiario-edit-component', require('./components/BeneficiarioEditComponent.vue').default);
 Vue.component('beneficiario-new-component', require('./components/BeneficiarioNewComponent.vue').default);
 
+Vue.component('correlativo-component', require('./components/CorrelativoComponent.vue').default);
+Vue.component('correlativo-edit-component', require('./components/CorrelativoEditComponent.vue').default);
+Vue.component('correlativo-new-component', require('./components/CorrelativoNewComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

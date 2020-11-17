@@ -33,6 +33,10 @@ Route::get('getBeneficiarios', function(Request $request){
     ];
 });
 
+Route::get('getCorrelativo/{id}', function(Request $request){
+    return App\Correlativo::find($id);
+});
+
 Route::get('getCorrelativos', function(Request $request){
     $correlativos = DB::table('correlativos')
             ->join('municipios', 'municipios.id', '=', 'correlativos.municipio_id')

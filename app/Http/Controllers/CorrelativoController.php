@@ -79,7 +79,17 @@ class CorrelativoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'municipio_id' => 'required',
+            'n_partida' => 'required',
+            'proyecto' => 'required',
+            'beneficiario_id' => 'required',
+            'orden_compra' => 'required'
+        ]);
+
+        Correlativo::find($id)->update($request->all());
+
+        return;
     }
 
     /**
@@ -90,6 +100,7 @@ class CorrelativoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $correlativo = Correlativo::find($id);
+        $correlativo->delete();
     }
 }
