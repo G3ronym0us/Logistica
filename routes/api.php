@@ -85,6 +85,21 @@ Route::get('getCatalogos', function(Request $request){
     ];;
 });
 
+Route::get('getUsuarios', function(Request $request){
+    $usuarios = App\User::orderBy('id', 'DESC')->paginate(10);
+    return [
+        'pagination' => [
+            'total'         => $usuarios->total(),
+            'current_page'  => $usuarios->currentPage(),
+            'per_page'      => $usuarios->perPage(),
+            'last_page'     => $usuarios->lastPage(),
+            'from'          => $usuarios->firstItem(),
+            'to'            => $usuarios->lastItem(),
+        ],
+        'usuarios' => $usuarios
+    ];;
+});
+
 Route::get('getUnidades', function(Request $request){
     $unidades = App\UnidadMedida::orderBy('id', 'DESC')->paginate(10);
     return [
@@ -99,4 +114,21 @@ Route::get('getUnidades', function(Request $request){
         'unidades' => $unidades
     ];;
 });
+
+Route::get('searchProduct/{id}', function($id){
+    return App\Catalogo::find($id);
+});
+
+Route::get('getMunicipio/{id}', function($id){
+    return App\Municipio::find($id);
+});
+
+Route::get('getBeneficiario/{id}', function($id){
+    return App\Beneficiario::find($id);
+});
+
+Route::get('getDetalles/{id}', function($id){
+    return App\DetallesCorrelativo::where('correlativo_id',$id)->get();
+});
+
 

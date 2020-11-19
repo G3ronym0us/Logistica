@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User as User;
+use App\DetallesCorrelativo as DetallesCorrelativo;
+use App\Correlativo as Correlativo;
 
-class UserController extends Controller
+class DetallesCorrelativoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        return view('detalles.index');
     }
 
     /**
@@ -35,16 +36,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'rol' => 'required',
-            'password' => 'required'
-        ]);
-
-        User::create($request->all());
-
-        return;
+        $detalles=$request->get('detalles');
+        print_r($detalles);
+        $correlativo_latest = Correlativo::latest('id')->first();
+        $cont = 0;
+        while ($cont < count($detalles)) {
+            $detalleNew = new DetallesCorrelativo();
+            $detalleNew->correlativo_id = $correlativo_latest->id;
+            $detalleNew->catalogo_id = $detalles[$cont]['catalogo_id'];
+            $detalleNew->cantidad = $detalles[$cont]['cantidad'];
+            $detalleNew->subtotal = $detalles[$cont]['valor_total'];
+            $detalleNew->save();
+            $cont++;
+        }
     }
 
     /**
@@ -78,16 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'rol' => 'required',
-            'password' => 'required'
-        ]);
-
-        User::find($id)->update($request->all());
-
-        return;
+        //
     }
 
     /**

@@ -25,6 +25,8 @@ Route::resource('beneficiario', 'BeneficiarioController', ['except' => 'show', '
 Route::resource('correlativo', 'CorrelativoController', ['except' => 'show', 'create', 'edit']);
 Route::resource('catalogo', 'CatalogoController', ['except' => 'show', 'create', 'edit']);
 Route::resource('unidad_medida', 'UnidadController', ['except' => 'show', 'create', 'edit']);
+Route::resource('detalles', 'DetallesCorrelativoController', ['except' => 'show', 'create', 'edit']);
+Route::resource('usuario', 'UserController', ['except' => 'show', 'create', 'edit']);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');

@@ -1,4 +1,4 @@
-/**
+0/**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
@@ -11,6 +11,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
 window.toastr= require('toastr');
+import pdf from 'vue-pdf'
+
+    export default {
+    components: {
+        pdf
+    }
+    }
 
 /**
  * The following block of code may be used to automatically register your
@@ -34,6 +41,12 @@ Vue.component('correlativo-new-component', require('./components/CorrelativoNewC
 Vue.component('catalogo-component', require('./components/CatalogoComponent.vue').default);
 
 Vue.component('unidad-component', require('./components/UnidadComponent.vue').default);
+
+Vue.component('detalles-component', require('./components/DetallesCorrelativoComponent.vue').default);
+
+Vue.component('user-component', require('./components/UserTableComponent.vue').default);
+
+Vue.component('nav-component', require('./components/NavegacionComponent.vue').default);
 
 
 /**

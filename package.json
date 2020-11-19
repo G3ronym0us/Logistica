@@ -24,7 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.1",
         "datatables": "^1.10.18",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "vue-pdf": "^4.2.0"
     }
 }

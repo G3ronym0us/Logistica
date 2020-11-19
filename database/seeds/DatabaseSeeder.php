@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CatalogoSeeder::class);
         $this->call(UnidadMedidaSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(DetallesCorrelativoSeeder::class);
     }
 }

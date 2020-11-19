@@ -21,10 +21,17 @@
                     <a href="{{ url('catalogo') }}" class="btn btn-primary">Catalogo</a>
 
                     <a href="{{ url('unidad_medida') }}" class="btn btn-primary">Unidad de Medida</a>
+
+                    <a href="{{ url('detalles') }}" class="btn btn-primary">Crear</a>
+
+                    <a href="{{ url('usuario') }}" class="btn btn-primary">Usuarios</a>
+
                     
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection

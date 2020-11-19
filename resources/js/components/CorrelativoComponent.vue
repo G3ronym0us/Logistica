@@ -1,6 +1,31 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
+            <div class="col-md-11">         
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link " @click="linkCrear()">Crear Correlativo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" @click="linkCorrelativo()">Correlativos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuración</a>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" @click="linkBeneficiario()">Beneficiario</a>
+                    <a class="dropdown-item" @click="linkCatalogo()">Catalago</a>
+                    <a class="dropdown-item" @click="linkUnidad()">Unidad de Medida</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" @click="linkUsuario()">Usuarios</a>
+                    </div>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                -->
+            </ul>     
+        </div>
             <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">Correlativo</div>
@@ -9,6 +34,7 @@
 
                             <div id="app" class="container">
                                 <div class="row">
+                                    
                                     <div class="col-sm-12">
                                         <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#create">Nuevo Correlativo</a>
                                         <table class="table table-hover table-striped table-responsive" id="correlativos-table">
@@ -21,20 +47,21 @@
                                                     <th>PROYECTO</th>
                                                     <th>BENEFICIARIO</th>
                                                     <th>ORDEN DE COMPRA</th>
-                                                    <th colspan="2">&nbsp;</th>
+                                                    <th colspan="3">&nbsp;</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr v-for="correlativo in correlativos" :key="correlativo.id">
-                                                    <td>{{ correlativo.id }}</td>
-                                                    <td style="white-space: nowrap;">{{ correlativo.created_at }}</td>
-                                                    <td>{{ correlativo.municipio }}</td>
-                                                    <td style="white-space: nowrap;">{{ correlativo.n_partida }}</td>
-                                                    <td>{{ correlativo.proyecto }}</td>
-                                                    <td>{{ correlativo.beneficiario }}</td>
-                                                    <td>{{ correlativo.orden_compra }}</td>
-                                                    <td><button class="btn btn-warning" v-on:click.prevent="editCorrelativo(correlativo)">Editar</button></td>
-                                                    <td><button class="btn btn-danger" v-on:click.prevent="deleteCorrelativo(correlativo.id)">Eliminar</button></td>
+                                                        <td>{{ correlativo.id }}</td>
+                                                        <td style="white-space: nowrap;">{{ correlativo.created_at }}</td>
+                                                        <td>{{ correlativo.municipio }}</td>
+                                                        <td style="white-space: nowrap;">{{ correlativo.n_partida }}</td>
+                                                        <td>{{ correlativo.proyecto }}</td>
+                                                        <td>{{ correlativo.beneficiario }}</td>
+                                                        <td>{{ correlativo.orden_compra }}</td>
+                                                        <td><button class="btn btn-info" v-on:click.prevent="detalleCorrelativo(correlativo)">Detalles</button></td>                                                        
+                                                        <td><button class="btn btn-warning" v-on:click.prevent="editCorrelativo(correlativo)">Editar</button></td>
+                                                        <td><button class="btn btn-danger" v-on:click.prevent="deleteCorrelativo(correlativo.id)">Eliminar</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -112,18 +139,102 @@
         </div>
         
     </div>
+
+
+    <div class="modal fade" id="detalleCorrelativo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Detalles de Correlativo {{id}} </h4>
+                    
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3 offset-md-6 bg-secondary text-white  border border-dark">
+                            FECHA
+                        </div>
+                        <div class="col-md-3">
+                            {{ d_fecha }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 bg-secondary text-white">
+                            MUNICIPIO
+                        </div>
+                        <div class="col-md-3">
+                            {{ d_municipio_name }}
+                        </div>
+                        <div class="col-md-3 bg-secondary text-white">
+                            N° DE PARTIDA
+                        </div>
+                        <div class="col-md-3">
+                            {{ d_partida }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 bg-secondary text-white">
+                            PROYECTO
+                        </div>
+                        <div class="col-md-2">
+                            {{ d_proyecto}}
+                        </div>
+                        <div class="col-md-3 bg-secondary text-white">
+                            BENEFICIARIO
+                        </div>
+                        <div class="col-md-5">
+                            {{ d_beneficiario }}
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-striped table-responsive" id="detalles_correlativo">
+                                <thead>
+                                    <tr>
+                                        <th>PRODUCTO</th>
+                                        <th>CANTIDAD</th>
+                                        <th>VALOR UNITARIO</th>
+                                        <th>VALOR TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="detalle in detalles" :key="detalle.id">
+                                            <td width="40%">{{ detalle.beneficiario_id }}</td>
+                                            <td width="10%">{{ detalle.cantidad }}</td>
+                                            <td width="25%">{{  }}</td>
+                                            <td width="25%">{{ detalle.subtotal }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Guardar">
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </form>		<correlativo-new-component @recargarCorrelativos="getCorrelativos"></correlativo-new-component>
     </div>
 </template>
 
 <script>
+
 export default {
-    
 	data () {
         return {
             correlativos: [],
             municipios: [],
             beneficiarios: [],
+            detalles: [],
             id: '',
             municipio_id: '',
             n_partida: '',
@@ -140,6 +251,11 @@ export default {
                 'to': 0
             },
             offset: 3,
+            d_fecha: null,
+            d_municipio_name: null,
+            d_partida: null,
+            d_proyecto: null,
+            d_beneficiario: null,
         }
     },
     created: function() {
@@ -194,6 +310,22 @@ export default {
             this.orden_compra = correlativo.orden_compra;
             $('#editCorrelativo').modal('show');
         },
+        detalleCorrelativo: function(correlativo){
+            this.d_fecha = correlativo.created_at;
+            var id = correlativo.municipio_id;
+            this.getMunicipio(id);
+            this.d_partida = correlativo.n_partida;
+            this.d_proyecto = correlativo.proyecto;
+            var id = correlativo.beneficiario_id;
+            this.getBeneficiario(id);
+            var url = 'api/getDetalles/'+correlativo.id;
+            axios.get(url).then(response => {
+                this.detalles = response.data
+            });
+            //this.d_beneficiario = correlativo.n_partida;
+            
+            $('#detalleCorrelativo').modal('show');
+        },
         changePage: function(page) {
             this.pagination.current_page = page;
             this.getCorrelativos(page);
@@ -202,6 +334,18 @@ export default {
             var url = 'api/getMunicipios';
             axios.get(url).then(response => {
                 this.municipios = response.data
+            });
+        },
+        getMunicipio: function(id){
+            var url = 'api/getMunicipio/'+id;
+            axios.get(url).then(response => {
+                this.d_municipio_name = response.data.name
+            });
+        },
+        getBeneficiario: function(id){
+            var url = 'api/getBeneficiario/'+id;
+            axios.get(url).then(response => {
+                this.d_beneficiario = response.data.name
             });
         },
         getBeneficiarios: function(){
@@ -239,7 +383,26 @@ export default {
 						this.getCorrelativos(); //listamos
 						toastr.success('Correlativo eliminado correctamente'); //mensaje
 					});
-				},
+                },
+                linkCrear: function(){
+            window.location.href = 'http://localhost:8000' +'/detalles'
+
+        },
+        linkCorrelativo: function(){
+            window.location.href = 'http://localhost:8000' +'/correlativo'
+        },
+        linkBeneficiario: function(){
+            window.location.href = 'http://localhost:8000' +'/beneficiario'
+        },
+        linkCatalogo: function(){
+            window.location.href = 'http://localhost:8000' +'/catalogo'
+        },
+        linkUnidad: function(){
+            window.location.href = 'http://localhost:8000' +'/unidad_medida'
+        },
+        linkUsuario: function(){
+            window.location.href = 'http://localhost:8000' +'/usuario'
+        },
     }
 }
 </script>
