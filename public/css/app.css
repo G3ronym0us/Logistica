@@ -10928,3 +10928,7 @@ a.text-dark:focus {
   }
 }
 
+body {
+  background-image: url(http://localhost:8000/img/fondo.jpg);
+}
+

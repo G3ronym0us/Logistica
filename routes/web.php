@@ -30,3 +30,5 @@ Route::resource('usuario', 'UserController', ['except' => 'show', 'create', 'edi
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
+
+Route::get('imprimirCorrelativo/{id}', 'DetallesCorrelativoController@imprimir');

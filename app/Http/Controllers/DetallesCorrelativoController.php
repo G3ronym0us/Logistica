@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\DetallesCorrelativo as DetallesCorrelativo;
 use App\Correlativo as Correlativo;
+use Barryvdh\DomPDF\PDF as PDF;
+use Illuminate\Support\Facades\DB;
 
 class DetallesCorrelativoController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -94,5 +106,26 @@ class DetallesCorrelativoController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function imprimir($id)
+    {
+        $correlativo = DB::table('correlativos as c')
+                            ->join('beneficiarios as b','c.beneficiario_id','=','b.id')
+                            ->join('municipios as m','c.municipio_id','=','m.id')
+                            ->select('c.*','b.name','m.name as municipio')
+                            ->where('c.id','=',$id)
+                            ->first(); 
+
+        $detalles = DB::table('detalles_correlativos as dc')
+                        ->join('catalogos as c','dc.catalogo_id','=','c.id')
+                        ->select('dc.*','c.name','c.valor')
+                        ->where('dc.correlativo_id','=',$id)
+                        ->get();
+
+        $pdf = \PDF::loadView('detalles.pdf', ['correlativo' => $correlativo, 'detalles' => $detalles]);
+
+        return $pdf->stream('archivo.pdf');
+
+        //return view('detalles.pdf',['correlativo' => $correlativo]);
     }
 }

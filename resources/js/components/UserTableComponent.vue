@@ -3,29 +3,7 @@
     <div class="container">
     	<div class="row justify-content-center">
             <div class="col-md-10">         
-                <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" @click="linkCrear()">Crear Correlativo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" @click="linkCorrelativo()">Correlativos</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuración</a>
-                    <div class="dropdown-menu">
-                    <a class="dropdown-item" @click="linkBeneficiario()">Beneficiario</a>
-                    <a class="dropdown-item" @click="linkCatalogo()">Catalago</a>
-                    <a class="dropdown-item" @click="linkUnidad()">Unidad de Medida</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" @click="linkUsuario()">Usuarios</a>
-                    </div>
-                </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                -->
-            </ul>    
+                
              </div>
         	<div class="col-md-10">
             	<div class="card">
@@ -258,7 +236,7 @@
                 },
 				changePage: function(page) {
 					this.pagination.current_page = page;
-					this.getBeneficiarios(page);
+					this.getUsuarios(page);
 				},
 				deleteUsuario: function(usuario) {
 					var url = 'usuario/' + usuario.id;

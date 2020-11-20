@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="app">
-        <beneficiario-component></beneficiario-component>
+        <beneficiario-component  rol="{{ Auth::user()->rol }}"></beneficiario-component>
         
     </div>
 @endsection

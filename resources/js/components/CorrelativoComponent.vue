@@ -2,29 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-11">         
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link " @click="linkCrear()">Crear Correlativo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" @click="linkCorrelativo()">Correlativos</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuración</a>
-                    <div class="dropdown-menu">
-                    <a class="dropdown-item" @click="linkBeneficiario()">Beneficiario</a>
-                    <a class="dropdown-item" @click="linkCatalogo()">Catalago</a>
-                    <a class="dropdown-item" @click="linkUnidad()">Unidad de Medida</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" @click="linkUsuario()">Usuarios</a>
-                    </div>
-                </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                -->
-            </ul>     
+                
         </div>
             <div class="col-md-11">
                 <div class="card">
@@ -60,8 +38,8 @@
                                                         <td>{{ correlativo.beneficiario }}</td>
                                                         <td>{{ correlativo.orden_compra }}</td>
                                                         <td><button class="btn btn-info" v-on:click.prevent="detalleCorrelativo(correlativo)">Detalles</button></td>                                                        
-                                                        <td><button class="btn btn-warning" v-on:click.prevent="editCorrelativo(correlativo)">Editar</button></td>
-                                                        <td><button class="btn btn-danger" v-on:click.prevent="deleteCorrelativo(correlativo.id)">Eliminar</button></td>
+                                                        <td><button class="btn btn-warning" v-on:click.prevent="imprimirCorrelativo(correlativo)">Imprimir</button></td>
+                                                        <td><button class="btn btn-danger" v-if="rol === 'ADMINISTRADOR'" v-on:click.prevent="deleteCorrelativo(correlativo.id)">Eliminar</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -203,9 +181,9 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="detalle in detalles" :key="detalle.id">
-                                            <td width="40%">{{ detalle.beneficiario_id }}</td>
+                                            <td width="40%">{{ detalle.name }}</td>
                                             <td width="10%">{{ detalle.cantidad }}</td>
-                                            <td width="25%">{{  }}</td>
+                                            <td width="25%">{{ detalle.valor }}</td>
                                             <td width="25%">{{ detalle.subtotal }}</td>
                                     </tr>
                                 </tbody>
@@ -229,6 +207,7 @@
 <script>
 
 export default {
+    props: ['rol'],
 	data () {
         return {
             correlativos: [],
@@ -291,9 +270,16 @@ export default {
                 from++;
             }
             return pagesArray;
-        }
+        },
+
     },
     methods: {
+        getNombre: function(id){
+            var url = 'api/getNombre/'+id;
+            axios.get(url).then(response => {
+                return response.data;
+            });
+        },
         getCorrelativos: function(page) {
             var url = 'api/getCorrelativos?page='+page;
             axios.get(url).then(response => {
@@ -310,6 +296,10 @@ export default {
             this.orden_compra = correlativo.orden_compra;
             $('#editCorrelativo').modal('show');
         },
+        imprimirCorrelativo: function(correlativo){
+            this.id   = correlativo.id;
+           window.location.href = 'http://localhost:8000' +'/imprimirCorrelativo/'+this.id;
+        },
         detalleCorrelativo: function(correlativo){
             this.d_fecha = correlativo.created_at;
             var id = correlativo.municipio_id;
@@ -320,7 +310,8 @@ export default {
             this.getBeneficiario(id);
             var url = 'api/getDetalles/'+correlativo.id;
             axios.get(url).then(response => {
-                this.detalles = response.data
+                this.detalles = response.data;
+                console.log(response.data);
             });
             //this.d_beneficiario = correlativo.n_partida;
             
@@ -387,21 +378,6 @@ export default {
                 linkCrear: function(){
             window.location.href = 'http://localhost:8000' +'/detalles'
 
-        },
-        linkCorrelativo: function(){
-            window.location.href = 'http://localhost:8000' +'/correlativo'
-        },
-        linkBeneficiario: function(){
-            window.location.href = 'http://localhost:8000' +'/beneficiario'
-        },
-        linkCatalogo: function(){
-            window.location.href = 'http://localhost:8000' +'/catalogo'
-        },
-        linkUnidad: function(){
-            window.location.href = 'http://localhost:8000' +'/unidad_medida'
-        },
-        linkUsuario: function(){
-            window.location.href = 'http://localhost:8000' +'/usuario'
         },
     }
 }

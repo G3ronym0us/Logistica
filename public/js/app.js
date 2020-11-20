@@ -1973,30 +1973,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['rol'],
   data: function data() {
     return {
       lists: [],
@@ -2354,30 +2332,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['rol'],
   data: function data() {
     return {
       catalogo: [],
@@ -2758,29 +2714,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['rol'],
   data: function data() {
     return {
       correlativos: [],
@@ -2850,6 +2785,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getNombre: function getNombre(id) {
+      var url = 'api/getNombre/' + id;
+      axios.get(url).then(function (response) {
+        return response.data;
+      });
+    },
     getCorrelativos: function getCorrelativos(page) {
       var _this = this;
 
@@ -2868,6 +2809,10 @@ __webpack_require__.r(__webpack_exports__);
       this.orden_compra = correlativo.orden_compra;
       $('#editCorrelativo').modal('show');
     },
+    imprimirCorrelativo: function imprimirCorrelativo(correlativo) {
+      this.id = correlativo.id;
+      window.location.href = 'http://localhost:8000' + '/imprimirCorrelativo/' + this.id;
+    },
     detalleCorrelativo: function detalleCorrelativo(correlativo) {
       var _this2 = this;
 
@@ -2881,6 +2826,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = 'api/getDetalles/' + correlativo.id;
       axios.get(url).then(function (response) {
         _this2.detalles = response.data;
+        console.log(response.data);
       }); //this.d_beneficiario = correlativo.n_partida;
 
       $('#detalleCorrelativo').modal('show');
@@ -2961,21 +2907,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     linkCrear: function linkCrear() {
       window.location.href = 'http://localhost:8000' + '/detalles';
-    },
-    linkCorrelativo: function linkCorrelativo() {
-      window.location.href = 'http://localhost:8000' + '/correlativo';
-    },
-    linkBeneficiario: function linkBeneficiario() {
-      window.location.href = 'http://localhost:8000' + '/beneficiario';
-    },
-    linkCatalogo: function linkCatalogo() {
-      window.location.href = 'http://localhost:8000' + '/catalogo';
-    },
-    linkUnidad: function linkUnidad() {
-      window.location.href = 'http://localhost:8000' + '/unidad_medida';
-    },
-    linkUsuario: function linkUsuario() {
-      window.location.href = 'http://localhost:8000' + '/usuario';
     }
   }
 });
@@ -3406,28 +3337,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3605,24 +3514,6 @@ __webpack_require__.r(__webpack_exports__);
         this.valor_total = null;
         this.$refs.catalogo.focus(); // }
       }
-    },
-    linkCrear: function linkCrear() {
-      window.location.href = 'http://localhost:8000' + '/detalles';
-    },
-    linkCorrelativo: function linkCorrelativo() {
-      window.location.href = 'http://localhost:8000' + '/correlativo';
-    },
-    linkBeneficiario: function linkBeneficiario() {
-      window.location.href = 'http://localhost:8000' + '/beneficiario';
-    },
-    linkCatalogo: function linkCatalogo() {
-      window.location.href = 'http://localhost:8000' + '/catalogo';
-    },
-    linkUnidad: function linkUnidad() {
-      window.location.href = 'http://localhost:8000' + '/unidad_medida';
-    },
-    linkUsuario: function linkUsuario() {
-      window.location.href = 'http://localhost:8000' + '/usuario';
     }
   }
 });
@@ -3698,29 +3589,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4086,28 +3954,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4242,7 +4088,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     changePage: function changePage(page) {
       this.pagination.current_page = page;
-      this.getBeneficiarios(page);
+      this.getUsuarios(page);
     },
     deleteUsuario: function deleteUsuario(usuario) {
       var _this3 = this;
@@ -76740,121 +76586,13 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-10" }, [
-          _c("ul", { staticClass: "nav nav-tabs" }, [
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCrear()
-                    }
-                  }
-                },
-                [_vm._v("Crear Correlativo")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link active",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCorrelativo()
-                    }
-                  }
-                },
-                [_vm._v("Correlativos")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item dropdown" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link dropdown-toggle",
-                  attrs: {
-                    "data-toggle": "dropdown",
-                    href: "#",
-                    role: "button",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false"
-                  }
-                },
-                [_vm._v("Configuración")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-menu" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkBeneficiario()
-                      }
-                    }
-                  },
-                  [_vm._v("Beneficiario")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkCatalogo()
-                      }
-                    }
-                  },
-                  [_vm._v("Catalago")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkUnidad()
-                      }
-                    }
-                  },
-                  [_vm._v("Unidad de Medida")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkUsuario()
-                      }
-                    }
-                  },
-                  [_vm._v("Usuarios")]
-                )
-              ])
-            ])
-          ])
-        ]),
+        _c("div", { staticClass: "col-md-10" }),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-10" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [_vm._v("Beneficiario")]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    \tEsta es la vista de Beneficiario \n                        "
-              ),
               _c("div", { staticClass: "container" }, [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-sm-12" }, [
@@ -76904,21 +76642,23 @@ var render = function() {
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.deleteBeneficiario(item)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Eliminar")]
-                                )
-                              ])
+                              _vm.rol === "ADMINISTRADOR"
+                                ? _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteBeneficiario(item)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Eliminar")]
+                                    )
+                                  ])
+                                : _vm._e()
                             ])
                           }),
                           0
@@ -77277,121 +77017,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("ul", { staticClass: "nav nav-tabs" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link ",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCrear()
-                  }
-                }
-              },
-              [_vm._v("Crear Correlativo")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCorrelativo()
-                  }
-                }
-              },
-              [_vm._v("Correlativos")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle active",
-                attrs: {
-                  "data-toggle": "dropdown",
-                  href: "#",
-                  role: "button",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [_vm._v("Configuración")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-menu" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkBeneficiario()
-                    }
-                  }
-                },
-                [_vm._v("Beneficiario")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCatalogo()
-                    }
-                  }
-                },
-                [_vm._v("Catalago")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUnidad()
-                    }
-                  }
-                },
-                [_vm._v("Unidad de Medida")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUsuario()
-                    }
-                  }
-                },
-                [_vm._v("Usuarios")]
-              )
-            ])
-          ])
-        ])
-      ]),
+      _c("div", { staticClass: "col-md-10" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Catalogo")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._v(
-              "\n                    \tEsta es la vista de Catalogo \n                        "
-            ),
             _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-sm-12" }, [
@@ -77446,21 +77078,23 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.deleteCatalogo(producto)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Eliminar")]
-                              )
-                            ])
+                            _vm.rol === "ADMINISTRADOR"
+                              ? _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.deleteCatalogo(producto)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Eliminar")]
+                                  )
+                                ])
+                              : _vm._e()
                           ])
                         }),
                         0
@@ -77770,112 +77404,7 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-11" }, [
-          _c("ul", { staticClass: "nav nav-tabs" }, [
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link ",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCrear()
-                    }
-                  }
-                },
-                [_vm._v("Crear Correlativo")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link active",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCorrelativo()
-                    }
-                  }
-                },
-                [_vm._v("Correlativos")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item dropdown" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link dropdown-toggle",
-                  attrs: {
-                    "data-toggle": "dropdown",
-                    href: "#",
-                    role: "button",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false"
-                  }
-                },
-                [_vm._v("Configuración")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-menu" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkBeneficiario()
-                      }
-                    }
-                  },
-                  [_vm._v("Beneficiario")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkCatalogo()
-                      }
-                    }
-                  },
-                  [_vm._v("Catalago")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkUnidad()
-                      }
-                    }
-                  },
-                  [_vm._v("Unidad de Medida")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    on: {
-                      click: function($event) {
-                        return _vm.linkUsuario()
-                      }
-                    }
-                  },
-                  [_vm._v("Usuarios")]
-                )
-              ])
-            ])
-          ])
-        ]),
+        _c("div", { staticClass: "col-md-11" }),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-11" }, [
           _c("div", { staticClass: "card" }, [
@@ -77964,30 +77493,34 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        return _vm.editCorrelativo(correlativo)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Editar")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.deleteCorrelativo(
-                                          correlativo.id
+                                        return _vm.imprimirCorrelativo(
+                                          correlativo
                                         )
                                       }
                                     }
                                   },
-                                  [_vm._v("Eliminar")]
+                                  [_vm._v("Imprimir")]
                                 )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm.rol === "ADMINISTRADOR"
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteCorrelativo(
+                                              correlativo.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Eliminar")]
+                                    )
+                                  : _vm._e()
                               ])
                             ])
                           }),
@@ -78443,7 +77976,7 @@ var render = function() {
                               _vm._l(_vm.detalles, function(detalle) {
                                 return _c("tr", { key: detalle.id }, [
                                   _c("td", { attrs: { width: "40%" } }, [
-                                    _vm._v(_vm._s(detalle.beneficiario_id))
+                                    _vm._v(_vm._s(detalle.name))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "10%" } }, [
@@ -78451,7 +77984,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "25%" } }, [
-                                    _vm._v(_vm._s())
+                                    _vm._v(_vm._s(detalle.valor))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "25%" } }, [
@@ -79116,99 +78649,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("ul", { staticClass: "nav nav-tabs" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCrear()
-                  }
-                }
-              },
-              [_vm._v("Crear Correlativo")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCorrelativo()
-                  }
-                }
-              },
-              [_vm._v("Correlativos")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-menu" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkBeneficiario()
-                    }
-                  }
-                },
-                [_vm._v("Beneficiario")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCatalogo()
-                    }
-                  }
-                },
-                [_vm._v("Catalago")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUnidad()
-                    }
-                  }
-                },
-                [_vm._v("Unidad de Medida")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUsuario()
-                    }
-                  }
-                },
-                [_vm._v("Usuarios")]
-              )
-            ])
-          ])
-        ])
-      ]),
+      _c("div", { staticClass: "col-md-12" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
@@ -79525,7 +78966,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -79810,7 +79251,7 @@ var render = function() {
                 _c("br"),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(1)
               ])
             ]
           )
@@ -79820,25 +79261,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link dropdown-toggle",
-        attrs: {
-          "data-toggle": "dropdown",
-          href: "#",
-          role: "button",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-cog" }), _vm._v("Configuración")]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -80056,112 +79478,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("ul", { staticClass: "nav nav-tabs" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCrear()
-                  }
-                }
-              },
-              [_vm._v("Crear Correlativo")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCorrelativo()
-                  }
-                }
-              },
-              [_vm._v("Correlativos")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle active",
-                attrs: {
-                  "data-toggle": "dropdown",
-                  href: "#",
-                  role: "button",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [_vm._v("Configuración")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-menu" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkBeneficiario()
-                    }
-                  }
-                },
-                [_vm._v("Beneficiario")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCatalogo()
-                    }
-                  }
-                },
-                [_vm._v("Catalago")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUnidad()
-                    }
-                  }
-                },
-                [_vm._v("Unidad de Medida")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUsuario()
-                    }
-                  }
-                },
-                [_vm._v("Usuarios")]
-              )
-            ])
-          ])
-        ])
-      ]),
+      _c("div", { staticClass: "col-md-10" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [
@@ -80170,9 +79487,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._v(
-              "\n                    \tEsta es la vista de Unidades de Medidas \n                        "
-            ),
             _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-sm-12" }, [
@@ -80461,112 +79775,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-10" }, [
-        _c("ul", { staticClass: "nav nav-tabs" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCrear()
-                  }
-                }
-              },
-              [_vm._v("Crear Correlativo")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                on: {
-                  click: function($event) {
-                    return _vm.linkCorrelativo()
-                  }
-                }
-              },
-              [_vm._v("Correlativos")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active dropdown-toggle",
-                attrs: {
-                  "data-toggle": "dropdown",
-                  href: "#",
-                  role: "button",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [_vm._v("Configuración")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-menu" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkBeneficiario()
-                    }
-                  }
-                },
-                [_vm._v("Beneficiario")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkCatalogo()
-                    }
-                  }
-                },
-                [_vm._v("Catalago")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUnidad()
-                    }
-                  }
-                },
-                [_vm._v("Unidad de Medida")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-item",
-                  on: {
-                    click: function($event) {
-                      return _vm.linkUsuario()
-                    }
-                  }
-                },
-                [_vm._v("Usuarios")]
-              )
-            ])
-          ])
-        ])
-      ]),
+      _c("div", { staticClass: "col-md-10" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [

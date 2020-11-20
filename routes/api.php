@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,7 +129,16 @@ Route::get('getBeneficiario/{id}', function($id){
 });
 
 Route::get('getDetalles/{id}', function($id){
-    return App\DetallesCorrelativo::where('correlativo_id',$id)->get();
+    //return App\DetallesCorrelativo::where('correlativo_id',$id)->get();
+    $detalles = DB::table('detalles_correlativos as dc')
+                        ->join('catalogos as c','dc.catalogo_id','=','c.id')
+                        ->select('dc.*','c.name','c.valor')
+                        ->where('dc.correlativo_id','=',$id)
+                        ->get();
+    return $detalles;
 });
 
-
+Route::get('getNombre/{id}', function($id){
+    $catalogo = App\Catalogo::find($id);
+    return $catalogo->name;
+});

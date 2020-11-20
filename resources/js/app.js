@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
  window.jquery = require('jquery');
 
 require('./bootstrap');
@@ -58,6 +59,7 @@ Vue.component('nav-component', require('./components/NavegacionComponent.vue').d
 new Vue({
 	el: '#app'
 });
+
 
 
 /*

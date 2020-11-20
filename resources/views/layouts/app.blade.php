@@ -11,14 +11,36 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript">
+        function linkCrear(){
+	window.location.href = 'http://localhost:8000' +'/detalles'
+}
+function linkCorrelativo(){
+	window.location.href = 'http://localhost:8000' +'/correlativo'
+}
+function linkBeneficiario(){
+	window.location.href = 'http://localhost:8000' +'/beneficiario'
+}
+function linkCatalogo(){
+	window.location.href = 'http://localhost:8000' +'/catalogo'
+}
+function linkUnidad(){
+	window.location.href = 'http://localhost:8000' +'/unidad_medida'
+}
+function linkUsuario(){
+	window.location.href = 'http://localhost:8000' +'/usuario'
+}
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
@@ -34,10 +56,28 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @if (!Auth::guest())
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" onClick="linkCrear()">Crear Correlativo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onClick="linkCorrelativo()">Correlativos</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i>Configuración</a>
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onClick="linkBeneficiario()">Beneficiario</a>
+                            <a class="dropdown-item" href="#" onClick="linkCatalogo()">Catalago</a>
+                            @if(Auth::user()->rol == 'ADMINISTRADOR')
+                            <a class="dropdown-item" href="#" onClick="linkUnidad()">Unidad de Medida</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" onClick="linkUsuario()">Usuarios</a>
+                            </div>
+                            @endif
+                        </li>
                     </ul>
-
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -45,11 +85,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -75,7 +110,10 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+        <div>
+                @yield('content')
+            </div>
+            
         </main>
     </div>
 </body>
