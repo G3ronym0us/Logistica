@@ -124,7 +124,7 @@ class DetallesCorrelativoController extends Controller
 
         $pdf = \PDF::loadView('detalles.pdf', ['correlativo' => $correlativo, 'detalles' => $detalles]);
 
-        return $pdf->stream('archivo.pdf');
+        return $pdf->download('archivo.pdf');
 
         //return view('detalles.pdf',['correlativo' => $correlativo]);
     }

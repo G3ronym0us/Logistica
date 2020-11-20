@@ -76590,7 +76590,9 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-md-10" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Beneficiario")]),
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("Configuración > Beneficiario")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { staticClass: "container" }, [
@@ -77021,7 +77023,9 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Catalogo")]),
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Configuración > Catalogo")
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "container" }, [

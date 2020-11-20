@@ -7,7 +7,7 @@
              </div>
         	<div class="col-md-10">
             	<div class="card">
-                	<div class="card-header">Beneficiario</div>
+                	<div class="card-header">Configuración > Beneficiario</div>
 					<div class="card-body">
                         <div class="container">
                             <div class="row">
