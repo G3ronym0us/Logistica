@@ -59,7 +59,7 @@ function linkUsuario(){
                     @if (!Auth::guest())
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="" onClick="linkCrear()">Crear Correlativo</a>
+                            <a class="nav-link active" href="#" onClick="linkCrear()">Crear Correlativo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" onClick="linkCorrelativo()">Correlativos</a>

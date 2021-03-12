@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User as User;
 
 class UserController extends Controller
@@ -52,7 +53,13 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        User::create($request->all());
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->rol = $request->get('rol');
+        $user->password = Hash::make($request->get('password'));
+
+        $user->save();
 
         return;
     }

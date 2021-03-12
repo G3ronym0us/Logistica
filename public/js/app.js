@@ -2712,8 +2712,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['rol'],
   data: function data() {
@@ -78002,9 +78000,7 @@ var render = function() {
                         )
                       ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(5)
+                  ])
                 ])
               ])
             ]
@@ -78095,17 +78091,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("VALOR TOTAL")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c("input", {
-        staticClass: "btn btn-primary",
-        attrs: { type: "submit", value: "Guardar" }
-      })
     ])
   }
 ]
@@ -94093,9 +94078,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Projects\Logistica\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Projects\Logistica\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Projects\Logistica\resources\sass\toastr.scss */"./resources/sass/toastr.scss");
+__webpack_require__(/*! C:\Users\Usuario\Logistica\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\Usuario\Logistica\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\Usuario\Logistica\resources\sass\toastr.scss */"./resources/sass/toastr.scss");
 
 
 /***/ }),
