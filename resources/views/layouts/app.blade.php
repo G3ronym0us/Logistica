@@ -73,7 +73,8 @@ function linkUsuario(){
                             <a class="dropdown-item" href="#" onClick="linkUnidad()">Unidad de Medida</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" onClick="linkUsuario()">Usuarios</a>
-                            </div>
+                            <a class="dropdown-item" href="{{ url('respaldarbd') }}">Respaldar BD</a>
+                        </div>
                             @endif
                         </li>
                     </ul>

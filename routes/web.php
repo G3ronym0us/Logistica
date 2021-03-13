@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 Auth::routes();
+
 Route::resource('beneficiario', 'BeneficiarioController', ['except' => 'show', 'create', 'edit']);
 Route::resource('correlativo', 'CorrelativoController', ['except' => 'show', 'create', 'edit']);
 Route::resource('catalogo', 'CatalogoController', ['except' => 'show', 'create', 'edit']);
@@ -32,3 +32,4 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
 
 Route::get('imprimirCorrelativo/{id}', 'DetallesCorrelativoController@imprimir');
+Route::get('respaldarbd', 'UserController@respaldarBD');
